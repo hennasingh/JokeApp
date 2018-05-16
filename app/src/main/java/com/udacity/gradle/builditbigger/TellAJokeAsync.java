@@ -39,7 +39,7 @@ public class TellAJokeAsync extends AsyncTask<String, Void, ArrayList<ArrayList<
         if(sMyApiService==null){
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(),null)
-                    .setRootUrl("http://192.168.0.66:8080/_ah/api/")
+                    .setRootUrl("http://127.0.0.1:8080/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                 @Override
                 public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest)
@@ -52,11 +52,12 @@ public class TellAJokeAsync extends AsyncTask<String, Void, ArrayList<ArrayList<
         }
 
         try{
-            return sMyApiService.tellJoke().execute().getJokeList();
+            return (sMyApiService.tellJoke().execute().getJokeList());
         }catch(IOException e){
             Log.e(TAG, "got an exception " + e.getMessage());
+            return null;
         }
 
-        return null;
+
     }
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">JokeWizard</string>
+    <string name="answer_button">Click button to display Answer</string>
 </resources>

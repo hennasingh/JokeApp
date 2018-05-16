@@ -11,7 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/backend" />
             <option value="$PROJECT_DIR$/jokestore" />
-            <option value="$PROJECT_DIR$/jokewizard" />
+            <option value="$PROJECT_DIR$/jokewizarddisplay" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
