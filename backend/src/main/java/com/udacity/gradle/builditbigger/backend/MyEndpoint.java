@@ -1,8 +1,11 @@
 package com.udacity.gradle.builditbigger.backend;
 
+import com.artist.web.jokestore.JokeTeller;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
+
+import java.util.ArrayList;
 
 import javax.inject.Named;
 
@@ -27,16 +30,24 @@ public class MyEndpoint {
         return response;
     }
 
-    /** A endpoint method that gives joke back from java library
+    /**A endpoint method that gives joke back from java library*/
     @ApiMethod(name = "tellJoke")
-    public JokeTeller tellJoke(@Named("question") String question,
-                               @Named("answer") String answer){
-        JokeTeller jokeResponse = new JokeTeller();
+    public JokeBean tellJoke(){
+        JokeTeller mJoke = new JokeTeller();
 
-        jokeResponse.setQuestion(question);
-        jokeResponse.setAnswer(answer);
-        return jokeResponse;
-    }*/
+        ArrayList<String> jokeQues = mJoke.getJokeQuestions();
+        ArrayList<String> jokeAns = mJoke.getJokeAnswers();
+        ArrayList<ArrayList<String>> jokeList = new ArrayList<>();
+        jokeList.add(jokeQues);
+        jokeList.add(jokeAns);
+
+
+        JokeBean jokeBean = new JokeBean();
+        jokeBean.setJokeList(jokeList);
+
+        return jokeBean;
+
+    }
 
 
 }
