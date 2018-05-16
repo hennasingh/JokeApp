@@ -35,7 +35,7 @@ public class TellAJoke extends AsyncTask<String, Void, JokeTeller> {
         if(sMyApiService==null){
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(),null)
-                    .setRootUrl("http://127.0.0.1:8080/_ah/api/");
+                    .setRootUrl("http://192.168.0.66:8080/_ah/api/");
             sMyApiService = builder.build();
         }
         String question = strings[0];
