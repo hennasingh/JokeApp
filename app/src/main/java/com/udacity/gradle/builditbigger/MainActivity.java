@@ -1,24 +1,35 @@
 package com.udacity.gradle.builditbigger;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 
-import com.artist.web.jokestore.JokeTeller;
-import com.artist.web.jokewizard.JokeActivity;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class MainActivity extends AppCompatActivity {
+
+    @BindView(R.id.loadingBar) ProgressBar mProgressBar;
+    @BindView(R.id.jokeBtn)   Button mJokeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ButterKnife.bind(this);
+        mProgressBar.setVisibility(View.INVISIBLE);
 
         AdView mAdView = findViewById(R.id.adView);
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -55,10 +66,27 @@ public class MainActivity extends AppCompatActivity {
 
     public void tellJoke(View view) {
 
-        JokeTeller jokeTeller = new JokeTeller();
-        Intent jokeDisplay = new Intent(getApplicationContext(), JokeActivity.class);
-        //jokeDisplay.putExtra(JokeActivity.JOKE, jokeTeller.getJoke());
-        startActivity(jokeDisplay);
+        mProgressBar.setVisibility(View.VISIBLE);
+        mJokeBtn.setVisibility(View.INVISIBLE);
+        TellAJokeAsync jokeAsync = new TellAJokeAsync(this,
+                new OnEventListener<HashMap<String, ArrayList<String>>>() {
+                    @Override
+                    public void onSuccess(HashMap<String, ArrayList<String>> object) {
+
+
+
+                        mProgressBar.setVisibility(View.INVISIBLE);
+                        mJokeBtn.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+
+                    }
+                });
+            jokeAsync.execute();
+
+
     }
 
 

@@ -3,7 +3,8 @@
           package="com.artist.web.jokewizard">
 
     <application>
-        <activity android:name=".JokeActivity">
+        <activity android:name=".JokeActivity"
+                  android:theme="@style/LibTheme">
         </activity>
     </application>
 

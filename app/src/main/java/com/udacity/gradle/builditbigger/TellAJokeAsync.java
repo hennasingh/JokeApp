@@ -19,9 +19,9 @@ import java.util.HashMap;
  * Created by User on 15-May-18.
  */
 
-public class TellAJokeAsync extends AsyncTask<String, Void, HashMap<String, ArrayList<String>>> {
+public class TellAJokeAsync extends AsyncTask<Void, Void, HashMap<String, ArrayList<String>>> {
 
-    private OnEventListener<JokeTeller> mCallback;
+    private OnEventListener<HashMap<String, ArrayList<String>>> mCallback;
     private WeakReference<MainActivity> appReference;
     public Exception mException;
     private static MyApi sMyApiService = null;
@@ -29,13 +29,13 @@ public class TellAJokeAsync extends AsyncTask<String, Void, HashMap<String, Arra
 
 
 
-    public TellAJokeAsync(OnEventListener<JokeTeller> callback, MainActivity context) {
+    public TellAJokeAsync(MainActivity context, OnEventListener<HashMap<String, ArrayList<String>>> callback) {
         mCallback = callback;
         appReference = new WeakReference<>(context);
     }
 
     @Override
-    protected HashMap<String, ArrayList<String>> doInBackground(String... strings) {
+    protected HashMap<String, ArrayList<String>> doInBackground(Void... params) {
 
         if(sMyApiService==null){
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
@@ -60,5 +60,10 @@ public class TellAJokeAsync extends AsyncTask<String, Void, HashMap<String, Arra
         }
 
 
+    }
+
+    @Override
+    protected void onPostExecute(HashMap<String, ArrayList<String>> stringArrayListHashMap) {
+        super.onPostExecute(stringArrayListHashMap);
     }
 }
