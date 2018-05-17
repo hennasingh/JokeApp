@@ -13,12 +13,13 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by User on 15-May-18.
  */
 
-public class TellAJokeAsync extends AsyncTask<String, Void, ArrayList<ArrayList<String>>> {
+public class TellAJokeAsync extends AsyncTask<String, Void, HashMap<String, ArrayList<String>>> {
 
     private OnEventListener<JokeTeller> mCallback;
     private WeakReference<MainActivity> appReference;
@@ -34,7 +35,7 @@ public class TellAJokeAsync extends AsyncTask<String, Void, ArrayList<ArrayList<
     }
 
     @Override
-    protected ArrayList<ArrayList<String>> doInBackground(String... strings) {
+    protected HashMap<String, ArrayList<String>> doInBackground(String... strings) {
 
         if(sMyApiService==null){
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
@@ -52,7 +53,7 @@ public class TellAJokeAsync extends AsyncTask<String, Void, ArrayList<ArrayList<
         }
 
         try{
-            return (sMyApiService.tellJoke().execute().getJokeList());
+            return sMyApiService.tellJoke().execute().getJokeList();
         }catch(IOException e){
             Log.e(TAG, "got an exception " + e.getMessage());
             return null;

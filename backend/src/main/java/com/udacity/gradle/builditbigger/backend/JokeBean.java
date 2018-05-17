@@ -1,6 +1,7 @@
 package com.udacity.gradle.builditbigger.backend;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by User on 15-May-18.
@@ -8,33 +9,15 @@ import java.util.ArrayList;
 
 public class JokeBean {
 
-    private ArrayList<String> mJokeQuestions;
-    private ArrayList<String> mJokeAnswers;
-    private ArrayList<ArrayList<String>> mJokeList;
+   private HashMap<String, ArrayList<String>> mJokeMap;
 
 
-    public ArrayList<String> getJokeQuestions() {
-        return mJokeQuestions;
-    }
-
-    public void setJokeQuestions(ArrayList<String> jokeQuestions) {
-        mJokeQuestions = jokeQuestions;
-    }
-
-    public ArrayList<String> getJokeAnswers() {
-        return mJokeAnswers;
-    }
-
-    public void setJokeAnswers(ArrayList<String> jokeAnswers) {
-        mJokeAnswers = jokeAnswers;
-    }
-
-    public void setJokeList(ArrayList<ArrayList<String>> jokeList){
-        mJokeList = jokeList;
+     void setJokeList(HashMap<String, ArrayList<String>> jokeMap){
+        mJokeMap = jokeMap;
 
     }
 
-    public ArrayList<ArrayList<String>> getJokeList(){
-        return mJokeList;
+    public HashMap<String, ArrayList<String>> getJokeList(){
+        return mJokeMap;
     }
 }

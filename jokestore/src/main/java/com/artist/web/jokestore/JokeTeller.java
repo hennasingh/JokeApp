@@ -2,6 +2,7 @@ package com.artist.web.jokestore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class JokeTeller {
 
@@ -33,17 +34,20 @@ public class JokeTeller {
 
     private static ArrayList<String> mJokeQuestions;
     private static ArrayList<String> mJokeAnswers;
+    private static HashMap<String, ArrayList<String>> mJokeMap;
 
     public JokeTeller() {
         mJokeQuestions = new ArrayList<>(Arrays.asList(JOKE_QUESTIONS));
         mJokeAnswers = new ArrayList<>(Arrays.asList(JOKE_ANSWERS));
+        mJokeMap = new HashMap<>();
+        mJokeMap.put("Ques", mJokeQuestions);
+        mJokeMap.put("Ans", mJokeAnswers);
     }
 
-    public ArrayList<String> getJokeQuestions() {
-        return mJokeQuestions;
+
+    public HashMap<String, ArrayList<String>> getJokeMap(){
+    return mJokeMap;
     }
 
-    public ArrayList<String> getJokeAnswers() {
-        return mJokeAnswers;
-    }
+
 }

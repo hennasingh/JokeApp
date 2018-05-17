@@ -6,6 +6,7 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.inject.Named;
 
@@ -35,15 +36,10 @@ public class MyEndpoint {
     public JokeBean tellJoke(){
         JokeTeller mJoke = new JokeTeller();
 
-        ArrayList<String> jokeQues = mJoke.getJokeQuestions();
-        ArrayList<String> jokeAns = mJoke.getJokeAnswers();
-        ArrayList<ArrayList<String>> jokeList = new ArrayList<>();
-        jokeList.add(jokeQues);
-        jokeList.add(jokeAns);
-
+        HashMap<String, ArrayList<String>> jokeMap= mJoke.getJokeMap();
 
         JokeBean jokeBean = new JokeBean();
-        jokeBean.setJokeList(jokeList);
+        jokeBean.setJokeList(jokeMap);
 
         return jokeBean;
 
