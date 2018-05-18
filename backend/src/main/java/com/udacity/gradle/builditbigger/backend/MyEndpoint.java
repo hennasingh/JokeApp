@@ -6,7 +6,6 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /** An endpoint class we are exposing */
 @Api(
@@ -31,18 +30,17 @@ public class MyEndpoint {
 
     /**A endpoint method that gives joke back from java library*/
     @ApiMethod(name = "tellJoke")
-    public JokeBean tellJoke(){
+    public MyBean tellJoke(){
         JokeTeller mJoke = new JokeTeller();
 
-        HashMap<String, ArrayList<String>> jokeMap= mJoke.getJokeMap();
+        ArrayList<String> jokeQues= mJoke.getJokeQuestions();
+        ArrayList<String> jokeAns = mJoke.getJokeAnswers();
 
         MyBean myBean = new MyBean();
-        myBean.setData(jokeMap);
+        myBean.setQuesData(jokeQues);
+        myBean.setAnsData(jokeAns);
 
-        JokeBean jokeBean = new JokeBean();
-        jokeBean.setBean(myBean);
-
-        return jokeBean;
+         return myBean;
 
     }
 

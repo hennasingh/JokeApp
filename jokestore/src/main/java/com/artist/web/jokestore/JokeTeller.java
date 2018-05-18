@@ -2,7 +2,7 @@ package com.artist.web.jokestore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Random;
 
 public class JokeTeller {
 
@@ -34,20 +34,32 @@ public class JokeTeller {
 
     private static ArrayList<String> mJokeQuestions;
     private static ArrayList<String> mJokeAnswers;
-    private static HashMap<String, ArrayList<String>> mJokeMap;
+
 
     public JokeTeller() {
         mJokeQuestions = new ArrayList<>(Arrays.asList(JOKE_QUESTIONS));
         mJokeAnswers = new ArrayList<>(Arrays.asList(JOKE_ANSWERS));
-        mJokeMap = new HashMap<>();
-        mJokeMap.put("Ques", mJokeQuestions);
-        mJokeMap.put("Ans", mJokeAnswers);
+
     }
 
 
-    public HashMap<String, ArrayList<String>> getJokeMap(){
-    return mJokeMap;
+   public ArrayList<String> generateJokeQuestions(){
+       Random rdnNum = new Random();
+       int n = rdnNum.nextInt(10);
+       String jokeQues = mJokeQuestions.get(n);
+       String jokeAns = mJokeAnswers.get(n);
+       ArrayList<String> jokeList = new ArrayList<>();
+       jokeList.add(0,jokeQues);
+       jokeList.add(1,jokeAns);
+
+       return jokeList;
+   }
+
+    public  ArrayList<String> getJokeQuestions() {
+        return mJokeQuestions;
     }
 
-
+    public  ArrayList<String> getJokeAnswers() {
+        return mJokeAnswers;
+    }
 }

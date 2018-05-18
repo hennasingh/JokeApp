@@ -1,18 +1,26 @@
 package com.udacity.gradle.builditbigger.backend;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /** The object model for the data we are sending through endpoints */
 public class MyBean {
 
-    private HashMap<String, ArrayList<String>> myData;
+    private ArrayList<String> mQuesData;
+    private ArrayList<String> mAnsData;
 
-    public HashMap<String, ArrayList<String>> getData() {
-        return myData;
+    public ArrayList<String> getQuesData() {
+        return mQuesData;
     }
 
-    public void setData(HashMap<String, ArrayList<String>> data) {
-        myData = data;
+    public void setQuesData(ArrayList<String> data) {
+        mQuesData = data;
+    }
+
+    public void setAnsData(ArrayList<String> data) {
+        mAnsData = data;
+    }
+
+    public ArrayList<String> getAnsData() {
+        return mAnsData;
     }
 }

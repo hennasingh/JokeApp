@@ -8,33 +8,33 @@ import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
-import com.udacity.gradle.builditbigger.backend.myApi.model.JsonMap;
+
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by User on 15-May-18.
  */
 
-public class TellAJokeAsync extends AsyncTask<Void, Void, JokeBean> {
+public class TellAJokeAsync extends AsyncTask<Void, Void, ArrayList<String>> {
 
-    private OnEventListener<HashMap<String, ArrayList<String>>> mCallback;
+    private OnEventListener <ArrayList<String>> mCallback;
     private WeakReference<MainActivity> appReference;
     public Exception mException;
     private static MyApi sMyApiService = null;
+
     private static final String TAG = TellAJokeAsync.class.getSimpleName();
 
 
 
-    public TellAJokeAsync(MainActivity context, OnEventListener<HashMap<String, ArrayList<String>>> callback) {
+    public TellAJokeAsync(MainActivity context, OnEventListener<ArrayList<String>> callback) {
         mCallback = callback;
         appReference = new WeakReference<>(context);
     }
 
     @Override
-    protected JokeBean doInBackground(Void... params) {
+    protected ArrayList<String> doInBackground(Void... params) {
 
         if(sMyApiService==null){
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
@@ -52,10 +52,11 @@ public class TellAJokeAsync extends AsyncTask<Void, Void, JokeBean> {
         }
 
         try{
-            return sMyApiService.tellJoke().execute().getBean();
+            return (new ArrayList<>(sMyApiService.tellJoke().execute().getData()));
 
         }catch(IOException e){
             Log.e(TAG, "got an exception " + e.getMessage());
+            mException = e;
             return null;
         }
 
@@ -63,7 +64,13 @@ public class TellAJokeAsync extends AsyncTask<Void, Void, JokeBean> {
     }
 
     @Override
-    protected void onPostExecute(JokeBean stringArrayListHashMap) {
-        super.onPostExecute(stringArrayListHashMap);
+    protected void onPostExecute(ArrayList<String> jokeList){
+        if(mCallback!=null){
+            if(mException == null){
+                mCallback.onSuccess(jokeList);
+            }else{
+                mCallback.onFailure(mException);
+            }
+        }
     }
 }

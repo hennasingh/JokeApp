@@ -1,5 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -7,12 +8,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.artist.web.jokewizard.JokeActivity;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,11 +71,13 @@ public class MainActivity extends AppCompatActivity {
         mProgressBar.setVisibility(View.VISIBLE);
         mJokeBtn.setVisibility(View.INVISIBLE);
         TellAJokeAsync jokeAsync = new TellAJokeAsync(this,
-                new OnEventListener<HashMap<String, ArrayList<String>>>() {
+                new OnEventListener<ArrayList<String>>() {
                     @Override
-                    public void onSuccess(HashMap<String, ArrayList<String>> object) {
+                    public void onSuccess(ArrayList<String> jokeList) {
 
-
+                        Intent jokeDisplay = new Intent(getApplicationContext(), JokeActivity.class);
+                        jokeDisplay.putExtra(JokeActivity.JOKE_LIST, jokeList);
+                        startActivity(jokeDisplay);
 
                         mProgressBar.setVisibility(View.INVISIBLE);
                         mJokeBtn.setVisibility(View.VISIBLE);
@@ -81,13 +85,13 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
 
                     }
                 });
-            jokeAsync.execute();
+        jokeAsync.execute();
+
+      }
 
 
     }
-
-
-}
