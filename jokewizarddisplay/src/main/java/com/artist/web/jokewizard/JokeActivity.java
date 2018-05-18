@@ -13,7 +13,7 @@ public class JokeActivity extends AppCompatActivity {
 
     public static final String JOKE_LIST = "joke_data";
     TextView mJokeQues, mJokeAns;
-    ImageButton mJokeAnsBtn, mAnotherJoke;
+    ImageButton mJokeAnsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

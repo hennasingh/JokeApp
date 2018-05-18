@@ -35,10 +35,12 @@ public class MyEndpoint {
 
         ArrayList<String> jokeQues= mJoke.getJokeQuestions();
         ArrayList<String> jokeAns = mJoke.getJokeAnswers();
+        ArrayList<String> mData = mJoke.generateJokeQuestions();
 
         MyBean myBean = new MyBean();
         myBean.setQuesData(jokeQues);
         myBean.setAnsData(jokeAns);
+        myBean.setData(mData);
 
          return myBean;
 

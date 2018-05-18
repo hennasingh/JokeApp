@@ -7,6 +7,7 @@ public class MyBean {
 
     private ArrayList<String> mQuesData;
     private ArrayList<String> mAnsData;
+    private ArrayList<String> mData;
 
     public ArrayList<String> getQuesData() {
         return mQuesData;
@@ -22,5 +23,13 @@ public class MyBean {
 
     public ArrayList<String> getAnsData() {
         return mAnsData;
+    }
+
+    public ArrayList<String> getData() {
+        return mData;
+    }
+
+    public void setData(ArrayList<String> data) {
+        mData = data;
     }
 }
