@@ -8,8 +8,6 @@ import com.google.api.server.spi.config.ApiNamespace;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.inject.Named;
-
 /** An endpoint class we are exposing */
 @Api(
         name = "myApi",
@@ -22,14 +20,14 @@ import javax.inject.Named;
 )
 public class MyEndpoint {
 
-    /** A simple endpoint method that takes a name and says Hi back */
+    /** A simple endpoint method that takes a name and says Hi back
     @ApiMethod(name = "sayHi")
     public MyBean sayHi(@Named("name") String name) {
         MyBean response = new MyBean();
         response.setData("Hi, " + name);
 
         return response;
-    }
+    }*/
 
     /**A endpoint method that gives joke back from java library*/
     @ApiMethod(name = "tellJoke")
@@ -38,8 +36,11 @@ public class MyEndpoint {
 
         HashMap<String, ArrayList<String>> jokeMap= mJoke.getJokeMap();
 
+        MyBean myBean = new MyBean();
+        myBean.setData(jokeMap);
+
         JokeBean jokeBean = new JokeBean();
-        jokeBean.setJokeList(jokeMap);
+        jokeBean.setBean(myBean);
 
         return jokeBean;
 

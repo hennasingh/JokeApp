@@ -3,13 +3,12 @@ package com.udacity.gradle.builditbigger;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.artist.web.jokestore.JokeTeller;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
-
+import com.udacity.gradle.builditbigger.backend.myApi.model.JsonMap;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ import java.util.HashMap;
  * Created by User on 15-May-18.
  */
 
-public class TellAJokeAsync extends AsyncTask<Void, Void, HashMap<String, ArrayList<String>>> {
+public class TellAJokeAsync extends AsyncTask<Void, Void, JokeBean> {
 
     private OnEventListener<HashMap<String, ArrayList<String>>> mCallback;
     private WeakReference<MainActivity> appReference;
@@ -35,7 +34,7 @@ public class TellAJokeAsync extends AsyncTask<Void, Void, HashMap<String, ArrayL
     }
 
     @Override
-    protected HashMap<String, ArrayList<String>> doInBackground(Void... params) {
+    protected JokeBean doInBackground(Void... params) {
 
         if(sMyApiService==null){
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
@@ -53,7 +52,8 @@ public class TellAJokeAsync extends AsyncTask<Void, Void, HashMap<String, ArrayL
         }
 
         try{
-            return sMyApiService.tellJoke().execute().getJokeList();
+            return sMyApiService.tellJoke().execute().getBean();
+
         }catch(IOException e){
             Log.e(TAG, "got an exception " + e.getMessage());
             return null;
@@ -63,7 +63,7 @@ public class TellAJokeAsync extends AsyncTask<Void, Void, HashMap<String, ArrayL
     }
 
     @Override
-    protected void onPostExecute(HashMap<String, ArrayList<String>> stringArrayListHashMap) {
+    protected void onPostExecute(JokeBean stringArrayListHashMap) {
         super.onPostExecute(stringArrayListHashMap);
     }
 }
