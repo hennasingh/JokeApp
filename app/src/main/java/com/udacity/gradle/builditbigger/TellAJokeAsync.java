@@ -21,6 +21,7 @@ public class TellAJokeAsync extends AsyncTask<Void, Void, ArrayList<String>> {
 
     private OnEventListener <ArrayList<String>> mCallback;
     private WeakReference<MainActivity> appReference;
+    private static final String LOCALHOST_IP_ADDRESS = "http://10.0.2.2:8080/_ah/api/";
     public Exception mException;
     private static MyApi sMyApiService = null;
 
@@ -39,7 +40,7 @@ public class TellAJokeAsync extends AsyncTask<Void, Void, ArrayList<String>> {
         if(sMyApiService==null){
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(),null)
-                    .setRootUrl("http://127.0.0.1:8080/_ah/api/")
+                    .setRootUrl(LOCALHOST_IP_ADDRESS)
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                 @Override
                 public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest)
@@ -59,7 +60,6 @@ public class TellAJokeAsync extends AsyncTask<Void, Void, ArrayList<String>> {
             mException = e;
             return null;
         }
-
 
     }
 
