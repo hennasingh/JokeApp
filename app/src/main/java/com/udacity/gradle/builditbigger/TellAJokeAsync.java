@@ -1,5 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -10,7 +11,6 @@ import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 /**
@@ -19,19 +19,17 @@ import java.util.ArrayList;
 
 public class TellAJokeAsync extends AsyncTask<Void, Void, ArrayList<String>> {
 
-    private OnEventListener <ArrayList<String>> mCallback;
-    private WeakReference<MainActivity> appReference;
     private static final String LOCALHOST_IP_ADDRESS = "http://10.0.2.2:8080/_ah/api/";
-    public Exception mException;
-    private static MyApi sMyApiService = null;
-
     private static final String TAG = TellAJokeAsync.class.getSimpleName();
+    private static MyApi sMyApiService = null;
+    public Exception mException;
+    private OnEventListener<ArrayList<String>> mCallback;
+    private Context mContext;
 
 
-
-    public TellAJokeAsync(MainActivity context, OnEventListener<ArrayList<String>> callback) {
+    public TellAJokeAsync(Context context, OnEventListener<ArrayList<String>> callback) {
         mCallback = callback;
-        appReference = new WeakReference<>(context);
+        mContext = context;
     }
 
     @Override

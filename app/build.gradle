@@ -30,6 +30,20 @@ android {
         }
     }
 
+    flavorDimensions "type"
+
+    productFlavors {
+        free {
+            applicationId "com.udacity.gradle.builditbigger.free"
+            dimension "type"
+        }
+        paid {
+            applicationId "com.udacity.gradle.builditbigger.paid"
+            dimension "type"
+
+        }
+    }
+
 }
 
 dependencies {

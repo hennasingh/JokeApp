@@ -19,11 +19,12 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.loadingBar) ProgressBar mProgressBar;
-    @BindView(R.id.jokeBtn)   Button mJokeBtn;
+    @BindView(R.id.loadingBar)
+    ProgressBar mProgressBar;
+    @BindView(R.id.jokeBtn)
+    Button mJokeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 });
         jokeAsync.execute();
 
-      }
-
-
     }
+
+
+}
