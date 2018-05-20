@@ -19,10 +19,10 @@ import java.util.ArrayList;
 
 public class TellAJokeAsync extends AsyncTask<Void, Void, ArrayList<String>> {
 
-    private static final String LOCALHOST_IP_ADDRESS = "http://10.0.2.2:8080/_ah/api/";
+    private static final String LOCALHOST_IP_ADDRESS = "http://192.168.0.66:8080/_ah/api/";
     private static final String TAG = TellAJokeAsync.class.getSimpleName();
     private static MyApi sMyApiService = null;
-    public Exception mException;
+    private Exception mException;
     private OnEventListener<ArrayList<String>> mCallback;
     private Context mContext;
 

@@ -33,3 +33,9 @@ dependencies {
 
     implementation project(':jokestore')
 }
+    appengine {
+        run {
+            host = "0.0.0.0"
+        }
+    }
+

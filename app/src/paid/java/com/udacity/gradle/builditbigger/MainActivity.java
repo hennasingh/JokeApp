@@ -9,11 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.artist.web.jokewizard.JokeActivity;
-
 import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -23,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar mProgressBar;
     @BindView(R.id.jokeBtn)
     Button mJokeBtn;
+    TellAJokeAsync jokeAsync;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         mProgressBar.setVisibility(View.VISIBLE);
         mJokeBtn.setVisibility(View.INVISIBLE);
-        TellAJokeAsync jokeAsync = new TellAJokeAsync(this,
+        jokeAsync = new TellAJokeAsync(this,
                 new OnEventListener<ArrayList<String>>() {
                     @Override
                     public void onSuccess(ArrayList<String> jokeList) {
