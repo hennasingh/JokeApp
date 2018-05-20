@@ -7,11 +7,15 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class JokeActivity extends AppCompatActivity {
 
 
-    public static final String JOKE_LIST = "joke_data";
+    public static final String JOKE_QUES = "joke_ques";
+    public static final String JOKE_ANS = "joke_ans";
+
+    private ArrayList<String> mJokeQuestions, mJokeAnswers;
     TextView mJokeQues, mJokeAns;
     ImageButton mJokeAnsBtn;
 
@@ -28,12 +32,21 @@ public class JokeActivity extends AppCompatActivity {
         mJokeAns.setVisibility(View.INVISIBLE);
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
-            ArrayList<String> jokeList = extras.getStringArrayList(JOKE_LIST);
-            String jokeQues = jokeList.get(0);
-            String jokeAns = jokeList.get(1);
-            displayData(jokeQues, jokeAns);
+            mJokeQuestions = extras.getStringArrayList(JOKE_QUES);
+            mJokeAnswers = extras.getStringArrayList(JOKE_ANS);
+
+            displayRandomJoke();
+
         }
 
+    }
+
+    private void displayRandomJoke() {
+        Random rdnNum = new Random();
+        int n = rdnNum.nextInt(10);
+        String jokeQues = mJokeQuestions.get(n);
+        String jokeAns = mJokeAnswers.get(n);
+        displayData(jokeQues, jokeAns);
     }
 
     private void displayData(String jokeQues, String jokeAns) {
@@ -48,5 +61,10 @@ public class JokeActivity extends AppCompatActivity {
 
     }
 
+    public void displayMoreJokes(View view) {
+        mJokeAns.setVisibility(View.INVISIBLE);
+        displayRandomJoke();
+
+    }
 
 }

@@ -60,12 +60,15 @@ public class MainActivity extends AppCompatActivity {
         mProgressBar.setVisibility(View.VISIBLE);
         mJokeBtn.setVisibility(View.INVISIBLE);
         jokeAsync = new TellAJokeAsync(this,
-                new OnEventListener<ArrayList<String>>() {
+                new OnEventListener<ArrayList<ArrayList<String>>>() {
                     @Override
-                    public void onSuccess(ArrayList<String> jokeList) {
+                    public void onSuccess(ArrayList<ArrayList<String>> jokeList) {
 
                         Intent jokeDisplay = new Intent(getApplicationContext(), JokeActivity.class);
-                        jokeDisplay.putExtra(JokeActivity.JOKE_LIST, jokeList);
+                        ArrayList<String> jokeQues = jokeList.get(0);
+                        ArrayList<String> jokeAns = jokeList.get(1);
+                        jokeDisplay.putExtra(JokeActivity.JOKE_QUES, jokeQues);
+                        jokeDisplay.putExtra(JokeActivity.JOKE_ANS, jokeAns);
                         startActivity(jokeDisplay);
 
                         mProgressBar.setVisibility(View.INVISIBLE);

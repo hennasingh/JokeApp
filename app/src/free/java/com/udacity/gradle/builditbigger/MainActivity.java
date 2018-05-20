@@ -3,6 +3,7 @@ package com.udacity.gradle.builditbigger;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,8 +12,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.artist.web.jokewizard.JokeActivity;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
 import java.util.ArrayList;
 
@@ -21,10 +24,12 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     @BindView(R.id.loadingBar)
     ProgressBar mProgressBar;
     @BindView(R.id.jokeBtn)
     Button mJokeBtn;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,23 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
         mProgressBar.setVisibility(View.INVISIBLE);
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+
+        AdRequest request = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+
+        mInterstitialAd.loadAd(request);
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the joke
+                loadJoke();
+            }
+
+        });
 
         AdView mAdView = findViewById(R.id.adView);
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -69,15 +91,27 @@ public class MainActivity extends AppCompatActivity {
 
     public void tellJoke(View view) {
 
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            Log.e(TAG, "Error Loading Interstitial Ad");
+        }
+    }
+
+    public void loadJoke() {
+
         mProgressBar.setVisibility(View.VISIBLE);
         mJokeBtn.setVisibility(View.INVISIBLE);
         TellAJokeAsync jokeAsync = new TellAJokeAsync(this,
-                new OnEventListener<ArrayList<String>>() {
+                new OnEventListener<ArrayList<ArrayList<String>>>() {
                     @Override
-                    public void onSuccess(ArrayList<String> jokeList) {
+                    public void onSuccess(ArrayList<ArrayList<String>> jokeList) {
 
                         Intent jokeDisplay = new Intent(getApplicationContext(), JokeActivity.class);
-                        jokeDisplay.putExtra(JokeActivity.JOKE_LIST, jokeList);
+                        ArrayList<String> jokeQues = jokeList.get(0);
+                        ArrayList<String> jokeAns = jokeList.get(1);
+                        jokeDisplay.putExtra(JokeActivity.JOKE_QUES, jokeQues);
+                        jokeDisplay.putExtra(JokeActivity.JOKE_ANS, jokeAns);
                         startActivity(jokeDisplay);
 
                         mProgressBar.setVisibility(View.INVISIBLE);

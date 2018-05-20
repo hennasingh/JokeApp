@@ -21,7 +21,7 @@ public class JokeAsyncTestClass extends ApplicationTestCase<Application> {
 
     private static final String JOKE_NULL = "Joke is null";
     private static final String JOKE_EMPTY = "Joke is empty";
-    private static final String ERROR_FETCHING_JOKE = "Error fetching the joke!";
+    private static final String ERROR_FETCHING_JOKE = "Network Error fetching the joke!";
     private ArrayList<String> jokeResult;
 
 
@@ -48,7 +48,6 @@ public class JokeAsyncTestClass extends ApplicationTestCase<Application> {
 
     @Test
     public void testAsyncJokeFetchTask() throws InterruptedException {
-
 
         new TellAJokeAsync(InstrumentationRegistry.getTargetContext(),
                 new OnEventListener<ArrayList<String>>() {
