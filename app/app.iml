@@ -201,7 +201,5 @@
     <orderEntry type="library" name="com.fasterxml.jackson.core:jackson-core:2.1.3@jar" level="project" />
     <orderEntry type="module" module-name="jokestore" />
     <orderEntry type="module" module-name="jokewizarddisplay" />
-    <orderEntry type="module" module-name="jokestore" />
-    <orderEntry type="module" module-name="jokewizarddisplay" />
   </component>
 </module>
