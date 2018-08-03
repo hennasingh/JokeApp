@@ -37,27 +37,7 @@ Gradle to manage apps of increasing complexity. You'll learn to:
 * Configure a multi project build to compile your libraries and app
 * Use the Gradle App Engine plugin to deploy a backend
 * Configure an integration test suite that runs against the local App Engine development server
-
-## How Do I Complete this Project?
-
-### Step 0: Starting Point
-
-This is the starting point for the final project, which is provided to you in
-the [course repository](https://github.com/udacity/ud867/tree/master/FinalProject). It
-contains an activity with a banner ad and a button that purports to tell a
-joke, but actually just complains. The banner ad was set up following the
-instructions here:
-
-https://developers.google.com/mobile-ads-sdk/docs/admob/android/quick-start
-
-You may need to download the Google Repository from the Extras section of the
-Android SDK Manager.
-
-You will also notice a folder called backend in the starter code. 
-It will be used in step 3 below, and you do not need to worry about it for now.
-
-When you can build an deploy this starter code to an emulator, you're ready to
-move on.
+--------------------------------------------------------------------------------------------------------------------------------------
 
 This project submitted by Henna Singh is a part of the Nanodegree At Udacity.
 
